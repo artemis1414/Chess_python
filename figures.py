@@ -1,15 +1,18 @@
-from dataset import pawn
+import pygame
 
 
-class BaseFigure:
+class BaseFigure(pygame.sprite.Sprite):
 
-    def __init__(self, x, y):
+    def __init__(self, color, image, cell):
+        pygame.sprite.Sprite.__init__(self)
         self.live = 1
-        self.x = x
-        self.y = y
+        self.image = image
+        self.color = color
+        self.rect = self.image.get_rect()
+        self.rect.center = (cell[0] * 100, cell[1] * 100)
 
     def attack(self, other):
-        other.die = 0
+        pass
 
     def die(self):
         self.live = 0
@@ -17,8 +20,8 @@ class BaseFigure:
 
 class King(BaseFigure):
 
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self, color, image, cell):
+        super().__init__(color, image, cell)
 
 
     def castling(self):
@@ -28,35 +31,33 @@ class King(BaseFigure):
 
 class Queen(BaseFigure):
 
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self, color, image, cell):
+        super().__init__(color, image, cell)
 
 
 class Bishop(BaseFigure):
-    def __init__(self, x, y):
-
-        super().__init__(x, y)
+    def __init__(self, color, image, cell):
+        super().__init__(color, image, cell)
 
 
 class Knight(BaseFigure):
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self, color, image, cell):
+        super().__init__(color, image, cell)
 
     def motion(self):
         pass
 
 class Rook(BaseFigure):
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self, color, image, cell):
+        super().__init__(color, image, cell)
 
     def castling(self):
         # рокировка
         pass
 
 class Pawn(BaseFigure):
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        self.act = 0
+    def __init__(self, color, image, cell):
+        super().__init__(color, image, cell)
 
     def motion(self):
         pass
