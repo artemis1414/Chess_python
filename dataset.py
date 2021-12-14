@@ -1,7 +1,8 @@
 import os
 import figures
 import pygame
-
+from button import Button
+from text import Text
 
 WIDTH = 900
 HEIGHT = 900
@@ -9,6 +10,7 @@ FPS = 20
 
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'image_png')
+pygame.font.init()
 
 
 start_position = {
@@ -49,3 +51,37 @@ bkn = pygame.image.load(os.path.join(img_folder, 'bkn.png'))
 bb = pygame.image.load(os.path.join(img_folder, 'bb.png'))
 bq = pygame.image.load(os.path.join(img_folder, 'bq.png'))
 br = pygame.image.load(os.path.join(img_folder, 'br.png'))
+wp.set_colorkey(BLACK)
+wk.set_colorkey(BLACK)
+wkn.set_colorkey(BLACK)
+wb.set_colorkey(BLACK)
+wq.set_colorkey(BLACK)
+wr.set_colorkey(BLACK)
+bp.set_colorkey(WHITE)
+bk.set_colorkey(WHITE)
+bkn.set_colorkey(WHITE)
+bb.set_colorkey(WHITE)
+bq.set_colorkey(WHITE)
+br.set_colorkey(WHITE)
+
+menu = [Button(x=WIDTH // 2 - 250,
+               y=100,
+               w=500,
+               h=100,
+               text=Text(text='Игра с компьютером',
+                         size=20,
+                         color=BLACK,
+                         bold=True
+                         ),
+               ),
+        Button(x=WIDTH // 2 - 250,
+               y=220,
+               w=500,
+               h=100,
+               text=Text(text='Игра с другом',
+                         size=20,
+                         color=BLACK,
+                         bold=True
+                         ),
+               ),
+        ]

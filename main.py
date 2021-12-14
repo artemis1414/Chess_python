@@ -1,4 +1,5 @@
 import player
+from button import Button
 from dataset import *
 from board import Cell, board
 import random
@@ -7,6 +8,7 @@ import pygame
 
 def main():
     position = {}
+
     def create_start_position_cell(cell, position):
         if cell in white_gamer_cell:
             if start_position[cell] == figures.Pawn:
@@ -37,6 +39,7 @@ def main():
                 position[cell] = start_position[cell]('black', bk.convert(), cell)
             sprite_figures.add(position[cell])
     pygame.init()
+
     pygame.mixer.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Шахматы')
@@ -49,7 +52,6 @@ def main():
             if count_color % 2 == 0:
                 board_cell = Cell(color='white', cell=cell)
                 create_start_position_cell(cell, position)
-                print(board_cell.rect.center)
             else:
                 board_cell = Cell(color='black', cell=cell)
                 create_start_position_cell(cell, position)
@@ -57,16 +59,20 @@ def main():
             all_sprites.add(board_cell)
         count_color += 1
     running = True
+    
     while running:
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        all_sprites.update()
+
+        # all_sprites.update()
         screen.fill(BLACK)
-        all_sprites.draw(screen)
-        sprite_figures.update()
-        sprite_figures.draw(screen)
+        for button_menu in menu:
+            button_menu.draw(screen)
+        # all_sprites.draw(screen)
+        # sprite_figures.update()
+        # sprite_figures.draw(screen)
         pygame.display.flip()
 
     pygame.quit()
