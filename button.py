@@ -9,6 +9,7 @@ class Button:
         self.x = x
         self.y = y
         self.background_color = dataset.WHITE
+        self.on_click = on_click
 
     def draw(self, surface):
         text_size_x, text_size_y = self.text.font_size
@@ -16,6 +17,9 @@ class Button:
         pygame.draw.rect(surface=surface, color=self.background_color, rect=self.bounds)
         self.text.draw(surface, posit)
 
+    def handle_mouse_up(self, pos):
+        if self.bounds.collidepoint(pos):
+            self.on_click()
 
 
 

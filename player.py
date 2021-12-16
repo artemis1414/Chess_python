@@ -1,10 +1,11 @@
 from dataset import figures
 from figures import *
 from board import board
-
+import pygame
 
 class Player:
-    def __init__(self, color, name):
+    def __init__(self, x, y, w, h, color, name):
+        self.bounds = pygame.rect.Rect(x, y, w, h)
         self.color = color
         self.name = name
         self.figures = {}
