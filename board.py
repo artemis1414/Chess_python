@@ -1,8 +1,19 @@
-import pprint
-row = [i for i in range(1, 9)]
-column = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-board = [[i + str(j) for i in column] for j in range(8, 0, -1)]
-board_x_y = [[str(i) + str(j) for i in range(1, 9)] for j in range(8, 0, -1)]
+import pygame
+from dataset import *
+
+
+class Cell(pygame.sprite.Sprite):
+    def __init__(self, color, cell):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((100, 100))
+        if color == "white":
+            self.image.fill(WHITE)
+        else:
+            self.image.fill(GREY)
+        self.rect = self.image.get_rect()
+        self.rect.center = (cell[0] * 100, cell[1] * 100)
+
+
 
 
 
