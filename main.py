@@ -118,37 +118,50 @@ def main():
             screen_white_gamer.fill(BLACK)
             screen_black_gamer.fill(BLACK)
             # Добавление всех элементов на экраны белого и черного
-            for board_spr in board_sprites_white:
-                screen_white_gamer.blit(board_spr.image, board_spr.rect)
-            for figures_spr in sprite_figures_white:
-                screen_white_gamer.blit(figures_spr.image, figures_spr.rect)
-            for board_spr in board_sprites_black:
-                screen_black_gamer.blit(board_spr.image, board_spr.rect)
-            for figures_spr in sprite_figures_black:
-                screen_black_gamer.blit(figures_spr.image, figures_spr.rect)
+            board_sprites_white.draw(screen_white_gamer)
+            sprite_figures_white.draw(screen_white_gamer)
+            board_sprites_black.draw(screen_black_gamer)
+            sprite_figures_black.draw(screen_black_gamer)
             turn = 'white'
             count_turn = 0
             while game_run:
                 clock.tick(FPS)
                 # контроль ходов
-                if turn == 'white':
-                    screen.blit(screen_white_gamer, (0, 0))
-                elif turn == 'black':
-                    screen.blit(screen_black_gamer, (0, 0))
-                pygame.display.flip()
+                turn_bool = False
+                screen.blit(screen_white_gamer, (0, 0))
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         game_run = False
                         start_game_friends_bool = False
                         running = False
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                        # первичный контроль ходов
+                        # TODO!
+                        pygame.mouse.get_rel()
+                    if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                        turn_bool = True
+                pos = pygame.mouse.get_pos()
+                rect_cur = Cell('white', (1, 1))
+                rect_cur.image = pygame.Surface((3, 3))
+                rect_cur.rect = rect_cur.image.get_rect()
+                rect_cur.rect.center = pos
+                figure_focus = pygame.sprite.spritecollideany(rect_cur, sprite_figures_white)
+                if figure_focus is not None and pygame.mouse.get_focused() and turn == figure_focus.color:
+                    pressed = pygame.mouse.get_pressed()
+                    if pressed[0]:
+                        rel = pygame.mouse.get_rel()
+                        figure_focus.rect.move_ip(rel)
+                    board_sprites_white.draw(screen_white_gamer)
+                    sprite_figures_white.draw(screen_white_gamer)
+                    screen.fill(BLACK)
+                    screen.blit(screen_white_gamer, (0, 0))
+                    pygame.display.update()
+                if turn_bool == True:
+                    if turn == 'white':
                         turn = 'black'
-                        count_turn += 1
-                    elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
-                        # первичный контроль ходов
+                    elif turn == 'black':
                         turn = 'white'
-                        count_turn += 1
+                pygame.display.flip()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -172,26 +185,6 @@ def main():
         pygame.display.flip()
 
     pygame.quit()
-    # name_player_1 = input('Введите имя первого игрока: ')
-    # name_player_2 = input('Введите имя второго игрока: ')
-    # x = input(f'''Выберите цвет:
-    # 0 - {name_player_1} будет играть белыми,
-    # 1 - {name_player_2} будет играть белыми,
-    # 2 - случайно
-    # ''')
-    # while True:
-    #     if x == '0':
-    #         player_1 = player.Player('white', name_player_1)
-    #         player_2 = player.Player('black', name_player_2)
-    #         print(f'Отлично! {player_1} играет белыми, {player_2} играет черными!')
-    #         break
-    #     elif x == '1':
-    #         player_1 = player.Player('black', name_player_1)
-    #         player_2 = player.Player('white', name_player_2)
-    #         print(f'Отлично! {player_2} играет белыми, {player_1} играет черными!')
-    #         break
-    #     else:
-    #         x = random.choice(('0', '1'))
 
 
 main()

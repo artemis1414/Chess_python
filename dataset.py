@@ -4,9 +4,9 @@ import pygame
 from button import Button
 from text import Text
 
-WIDTH = 900
+WIDTH = 1500
 HEIGHT = 900
-FPS = 20
+FPS = 60
 
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'image_png')

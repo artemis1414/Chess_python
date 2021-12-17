@@ -8,7 +8,7 @@ class Player:
         self.bounds = pygame.rect.Rect(x, y, w, h)
         self.color = color
         self.name = name
-        self.figures = {}
+        self.screen_white_game = {}
 
     def act(self):
         pass
