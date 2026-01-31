@@ -7,7 +7,7 @@ name = "chess-game"
 version = "0.1.0"
 description = "Шахматная игра на Python с использованием pygame"
 authors = [
-    { name = "Artem Dobikov", email = "soad14@gmail.com" }
+    { name = "Artem Dobikov", email = "soadob14@gmail.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.10"
