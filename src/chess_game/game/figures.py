@@ -10,7 +10,7 @@ class BaseFigure(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (cell[0] * 100, cell[1] * 100)
         self.focus = False
- 
+
     def attack(self, other):
         other.kill()
 
@@ -54,7 +54,6 @@ class Knight(BaseFigure):
         super().__init__(color, image, cell)
 
 
-
 class Rook(BaseFigure):
     def __init__(self, color, image, cell):
         super().__init__(color, image, cell)
@@ -63,7 +62,7 @@ class Rook(BaseFigure):
         # рокировка
         pass
 
+
 class Pawn(BaseFigure):
     def __init__(self, color, image, cell):
         super().__init__(color, image, cell)
-
