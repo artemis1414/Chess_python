@@ -1,7 +1,6 @@
-import player
-from dataset import *
-from board import Cell, board
-import random
+import chess_game.game.player as player
+from chess_game.utils.dataset import *
+from chess_game.game.board import Cell, board
 import pygame
 
 start_comp_game_bool = False
@@ -12,7 +11,7 @@ def main():
     global start_comp_game_bool
     global start_game_friends_bool
     global running
-
+ 
     def start_comp_game():
         global start_comp_game_bool
         start_comp_game_bool = True
@@ -124,37 +123,49 @@ def main():
             sprite_figures_black.draw(screen_black_gamer)
             turn = 'white'
             count_turn = 0
+            count_click = 0
             while game_run:
                 clock.tick(FPS)
                 # контроль ходов
                 turn_bool = False
+                take_figure = True
                 screen.blit(screen_white_gamer, (0, 0))
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        game_run = False
-                        start_game_friends_bool = False
-                        running = False
-                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                        # TODO!
-                        pygame.mouse.get_rel()
-                    if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                        turn_bool = True
                 pos = pygame.mouse.get_pos()
                 rect_cur = Cell('white', (1, 1))
                 rect_cur.image = pygame.Surface((3, 3))
                 rect_cur.rect = rect_cur.image.get_rect()
                 rect_cur.rect.center = pos
                 figure_focus = pygame.sprite.spritecollideany(rect_cur, sprite_figures_white)
-                if figure_focus is not None and pygame.mouse.get_focused() and turn == figure_focus.color:
-                    pressed = pygame.mouse.get_pressed()
-                    if pressed[0]:
-                        rel = pygame.mouse.get_rel()
-                        figure_focus.rect.move_ip(rel)
-                    board_sprites_white.draw(screen_white_gamer)
-                    sprite_figures_white.draw(screen_white_gamer)
-                    screen.fill(BLACK)
-                    screen.blit(screen_white_gamer, (0, 0))
-                    pygame.display.update()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        game_run = False
+                        start_game_friends_bool = False
+                        running = False
+                    if event.type == pygame.MOUSEMOTION and count_click < 1:
+                        take_figure = False
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if event.button == 1:
+                            pygame.event.set_blocked(pygame.MOUSEBUTTONUP)
+                            count_click += 1
+                    if count_click == 2:
+                        pygame.event.set_allowed(pygame.MOUSEBUTTONUP)
+                        count_click = 0
+                    if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and take_figure:
+                        turn_bool = True
+                if take_figure:
+                    if figure_focus is not None and pygame.mouse.get_focused() and turn == figure_focus.color:
+                        print(count_click, turn_bool)
+                        pygame.mouse.get_rel()
+                        figure_focus.rect.center = pos
+                        board_sprites_white.draw(screen_white_gamer)
+                        sprite_figures_white.draw(screen_white_gamer)
+                        screen.fill(BLACK)
+                        screen.blit(screen_white_gamer, (0, 0))
+                board_sprites_white.draw(screen_white_gamer)
+                sprite_figures_white.draw(screen_white_gamer)
+                screen.fill(BLACK)
+                screen.blit(screen_white_gamer, (0, 0))
+                pygame.display.update()
                 if turn_bool == True:
                     if turn == 'white':
                         turn = 'black'

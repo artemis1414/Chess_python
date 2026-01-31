@@ -9,13 +9,23 @@ class BaseFigure(pygame.sprite.Sprite):
         self.color = color
         self.rect = self.image.get_rect()
         self.rect.center = (cell[0] * 100, cell[1] * 100)
-
+        self.focus = False
+ 
     def attack(self, other):
         other.kill()
 
-    def handle_mouse_up(self):
-        pass
+    def handle_mouse_down(self):
+        self.focus = True
 
+    def motion(self, pos):
+        if self.rect.collidepoint(pos):
+            self.handle_mouse_down()
+            self.rect = self.image.get_rect()
+        else:
+            self.focus = False
+
+    def update(self):
+        self.rect = self.image.get_rect()
 
 
 class King(BaseFigure):

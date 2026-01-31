@@ -1,6 +1,5 @@
-from dataset import figures
-from figures import *
-from board import board
+from chess_game.utils.dataset import figures
+from chess_game.game.figures import *
 import pygame
 
 class Player:

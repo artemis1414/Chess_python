@@ -1,18 +1,20 @@
 import os
-import figures
+from pathlib import Path
+import chess_game.game.figures as figures
 import pygame
-from button import Button
-from text import Text
+from chess_game.utils.button import Button
+from chess_game.utils.text import Text
 
 WIDTH = 1500
 HEIGHT = 900
 FPS = 60
 
-game_folder = os.path.dirname(__file__)
-img_folder = os.path.join(game_folder, 'image_png')
+current_file = Path(__file__)
+project_root = current_file.parent.parent.parent.parent
+img_folder = project_root / 'assets' / 'image_png'
 pygame.font.init()
 
-
+ 
 start_position_black = {
  (1, 8): figures.Rook, (2, 8): figures.Knight, (3, 8): figures.Bishop, (4, 8): figures.King, (5, 8): figures.Queen, (6, 8): figures.Bishop, (7, 8): figures.Knight, (8, 8): figures.Rook,
  (1, 7): figures.Pawn, (2, 7): figures.Pawn, (3, 7): figures.Pawn, (4, 7): figures.Pawn, (5, 7): figures.Pawn, (6, 7): figures.Pawn, (7, 7): figures.Pawn, (8, 7): figures.Pawn,

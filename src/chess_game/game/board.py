@@ -1,5 +1,5 @@
 import pygame
-from dataset import *
+from chess_game.utils.dataset import *
 
 
 class Cell(pygame.sprite.Sprite):
@@ -12,8 +12,4 @@ class Cell(pygame.sprite.Sprite):
             self.image.fill(GREY)
         self.rect = self.image.get_rect()
         self.rect.center = (cell[0] * 100, cell[1] * 100)
-
-
-
-
 

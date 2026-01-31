@@ -1,5 +1,5 @@
 import pygame
-from dataset import *
+from chess_game.utils.dataset import *
 
 class Text:
 
@@ -15,4 +15,4 @@ class Text:
         surface.blit(self.render, posit)
 
     def __len__(self):
-        return len(self.text)
+        return len(self.text) 
