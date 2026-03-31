@@ -99,3 +99,4 @@ env.bak/
 venv.bak/
 env.bat
 
+.continue
